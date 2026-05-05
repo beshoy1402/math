@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wash & Eat – Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-box">
+      <div class="login-logo">W<span>&</span>E</div>
+      <h2>Admin Dashboard</h2>
+      <p class="login-sub">Sign in to manage your business</p>
+      <label>Username</label>
+      <input type="text" id="login-user" placeholder="admin" />
+      <label>Password</label>
+      <input type="password" id="login-pass" placeholder="••••••••" />
+      <div id="login-error" class="login-error hidden">❌ Invalid credentials</div>
+      <button class="btn btn-primary w-full" onclick="doLogin()">Sign In →</button>
+      <p class="login-hint">Demo: admin / wash2024</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="dashboard hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">W<span>&</span>E</div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="overview" onclick="switchTab('overview', this)">
+          <span class="nav-icon">📊</span> Overview
+        </button>
+        <button class="nav-item" data-tab="food" onclick="switchTab('food', this)">
+          <span class="nav-icon">🍔</span> Food Menu
+        </button>
+        <button class="nav-item" data-tab="carwash" onclick="switchTab('carwash', this)">
+          <span class="nav-icon">🚗</span> Car Wash
+        </button>
+        <button class="nav-item" data-tab="orders" onclick="switchTab('orders', this)">
+          <span class="nav-icon">🧾</span> Orders
+        </button>
+        <button class="nav-item" data-tab="bookings" onclick="switchTab('bookings', this)">
+          <span class="nav-icon">📅</span> Bookings
+        </button>
+      </nav>
+      <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="topbar-title" id="topbar-title">Overview</div>
+        <div class="admin-badge">Admin</div>
+      </header>
+
+      <!-- OVERVIEW TAB -->
+      <div id="tab-overview" class="tab-content active">
+        <div class="stats-row" id="stats-row"></div>
+        <div class="charts-row">
+          <div class="chart-card">
+            <div class="chart-title">Revenue by Category</div>
+            <canvas id="revenueChart" width="400" height="220"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Profit per Item</div>
+            <canvas id="profitChart" width="400" height="220"></canvas>
+          </div>
+        </div>
+        <div class="recent-orders">
+          <div class="section-title">Recent Orders</div>
+          <div id="recent-orders-list"></div>
+        </div>
+      </div>
+
+      <!-- FOOD TAB -->
+      <div id="tab-food" class="tab-content">
+        <div class="tab-header">
+          <h2>Food Menu</h2>
+          <button class="btn btn-primary btn-sm" onclick="openItemModal('food')">+ Add Item</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="food-table">
+            <thead>
+              <tr>
+                <th>Icon</th><th>Name</th><th>Description</th>
+                <th>Cost (EGP)</th><th>Price (EGP)</th><th>Profit</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="food-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CAR WASH TAB -->
+      <div id="tab-carwash" class="tab-content">
+        <div class="tab-header">
+          <h2>Car Wash Services</h2>
+          <button class="btn btn-primary btn-sm" onclick="openItemModal('carwash')">+ Add Service</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="carwash-table">
+            <thead>
+              <tr>
+                <th>Icon</th><th>Name</th><th>Description</th>
+                <th>Cost (EGP)</th><th>Price (EGP)</th><th>Profit</th><th>Popular</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="carwash-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ORDERS TAB -->
+      <div id="tab-orders" class="tab-content">
+        <div class="tab-header">
+          <h2>Orders</h2>
+          <button class="btn btn-sm" style="background:var(--dark-3);color:var(--text-muted)" onclick="clearOrders()">Clear All</button>
+        </div>
+        <div id="orders-list"></div>
+      </div>
+
+      <!-- BOOKINGS TAB -->
+      <div id="tab-bookings" class="tab-content">
+        <div class="tab-header">
+          <h2>Car Wash Bookings</h2>
+          <button class="btn btn-sm" style="background:var(--dark-3);color:var(--text-muted)" onclick="clearBookings()">Clear All</button>
+        </div>
+        <div id="bookings-list"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ITEM MODAL (Add/Edit) -->
+  <div id="item-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <button class="modal-close" onclick="closeItemModal()">✕</button>
+      <h3 id="item-modal-title">Add Item</h3>
+      <input type="hidden" id="item-edit-id" />
+      <input type="hidden" id="item-edit-type" />
+      <label>Icon (emoji)</label>
+      <input type="text" id="item-icon" placeholder="🍔" maxlength="4"/>
+      <label>Name</label>
+      <input type="text" id="item-name" placeholder="Burger"/>
+      <label>Description</label>
+      <input type="text" id="item-desc" placeholder="Tasty beef burger..."/>
+      <label>Cost Price (EGP)</label>
+      <input type="number" id="item-cost" placeholder="35" min="0"/>
+      <label>Selling Price (EGP)</label>
+      <input type="number" id="item-price" placeholder="89" min="0"/>
+      <div id="item-carwash-extra" class="hidden">
+        <label>Features (comma separated)</label>
+        <input type="text" id="item-features" placeholder="Exterior wash, Tire shine"/>
+        <label>
+          <input type="checkbox" id="item-popular" style="width:auto;margin-right:0.5rem"/> Mark as Popular
+        </label>
+      </div>
+      <div class="profit-preview" id="profit-preview"></div>
+      <button class="btn btn-primary w-full" style="margin-top:1rem" onclick="saveItem()">Save →</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

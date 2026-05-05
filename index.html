@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wash & Eat – Fresh Food & Premium Car Wash</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-logo">W&E</div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">Wash<span>&</span>Eat</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#food">Food</a></li>
+      <li><a href="#carwash">Car Wash</a></li>
+      <li><a href="#math">Pricing</a></li>
+      <li><a href="../admin/admin.html" target="_blank">Admin</a></li>
+    </ul>
+    <button class="cart-btn" onclick="toggleCart()">
+      🛒 Cart <span id="cart-count" class="cart-count">0</span>
+    </button>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="mobile-menu hidden">
+    <a href="#home" onclick="toggleMenu()">Home</a>
+    <a href="#food" onclick="toggleMenu()">Food</a>
+    <a href="#carwash" onclick="toggleMenu()">Car Wash</a>
+    <a href="#math" onclick="toggleMenu()">Pricing</a>
+    <a href="../admin/admin.html" target="_blank">Admin</a>
+    <button class="cart-btn" onclick="toggleCart(); toggleMenu()">🛒 Cart <span id="cart-count-mobile" class="cart-count">0</span></button>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section id="home" class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🎉 NEW: 20% Off First Car Wash!</div>
+      <h1>Fresh Food &<br><span class="accent">Premium</span> Car Wash</h1>
+      <p class="hero-sub">One stop. Two services. Zero compromise.<br>Order food while your car gets cleaned.</p>
+      <div class="hero-btns">
+        <a href="#food" class="btn btn-primary">🍔 Order Food</a>
+        <a href="#carwash" class="btn btn-outline">🚗 Book Car Wash</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Happy Customers</span></div>
+        <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Rating</span></div>
+        <div class="stat"><span class="stat-num">15min</span><span class="stat-label">Avg. Service</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card hero-card-1">
+        <div class="hc-icon">🍔</div>
+        <div>Burger Meal</div>
+        <div class="hc-price">EGP 89</div>
+      </div>
+      <div class="hero-card hero-card-2">
+        <div class="hc-icon">✨</div>
+        <div>Premium Wash</div>
+        <div class="hc-price">EGP 250</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO BANNER -->
+  <section class="promo-bar">
+    <div class="promo-track">
+      <span>🔥 Combo Deal: Burger + Fries for EGP 110</span>
+      <span>🚗 20% Off Your First Car Wash</span>
+      <span>⚡ Free Drink with Premium Package</span>
+      <span>🔥 Combo Deal: Burger + Fries for EGP 110</span>
+      <span>🚗 20% Off Your First Car Wash</span>
+    </div>
+  </section>
+
+  <!-- FOOD MENU -->
+  <section id="food" class="section">
+    <div class="section-header">
+      <h2>Our <span class="accent">Menu</span></h2>
+      <p>Fresh ingredients, big flavors</p>
+    </div>
+    <div class="menu-grid" id="menu-grid">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- CAR WASH SECTION -->
+  <section id="carwash" class="section section-dark">
+    <div class="section-header">
+      <h2>Car Wash <span class="accent">Services</span></h2>
+      <p>From basic to premium — your car deserves the best</p>
+    </div>
+    <div class="wash-grid" id="wash-grid">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- MATH / PROFIT SECTION -->
+  <section id="math" class="section">
+    <div class="section-header">
+      <h2>Business <span class="accent">Math</span></h2>
+      <p>Transparent pricing — how we calculate profit</p>
+    </div>
+    <div class="math-info-box">
+      <div class="formula-display">
+        <span class="formula-part cost">Cost</span>
+        <span class="formula-op">+</span>
+        <span class="formula-part margin">Margin</span>
+        <span class="formula-op">=</span>
+        <span class="formula-part price">Selling Price</span>
+        <span class="formula-op">→</span>
+        <span class="formula-part profit">Profit</span>
+      </div>
+    </div>
+    <div class="math-grid" id="math-grid">
+      <!-- Populated by JS -->
+    </div>
+    <div class="totals-box" id="totals-box">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- FLYER SECTION -->
+  <section id="flyer" class="section section-dark">
+    <div class="section-header">
+      <h2>Our <span class="accent">Offer</span></h2>
+    </div>
+    <div class="flyer">
+      <div class="flyer-header">
+        <div class="flyer-logo">Wash<span>&</span>Eat</div>
+        <div class="flyer-tagline">Where Hunger Meets Clean</div>
+      </div>
+      <div class="flyer-deals">
+        <div class="flyer-deal">
+          <div class="fd-icon">🍔🍟</div>
+          <div class="fd-title">Burger + Fries Combo</div>
+          <div class="fd-price"><s>EGP 130</s> <strong>EGP 110</strong></div>
+        </div>
+        <div class="flyer-deal featured">
+          <div class="fd-badge">BEST VALUE</div>
+          <div class="fd-icon">🚗✨</div>
+          <div class="fd-title">First Car Wash</div>
+          <div class="fd-price">20% OFF</div>
+        </div>
+        <div class="flyer-deal">
+          <div class="fd-icon">🥤🍕</div>
+          <div class="fd-title">Premium Package</div>
+          <div class="fd-price">Free Drink Included</div>
+        </div>
+      </div>
+      <div class="flyer-contact">
+        📍 Cairo, Egypt &nbsp;|&nbsp; 📞 +20 100 000 0000 &nbsp;|&nbsp; 📸 @WashAndEat
+      </div>
+    </div>
+  </section>
+
+  <!-- CART SIDEBAR -->
+  <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
+  <div id="cart-sidebar" class="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart 🛒</h3>
+      <button onclick="toggleCart()">✕</button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        Total: <span id="cart-total">EGP 0</span>
+      </div>
+      <button class="btn btn-primary w-full" onclick="checkout()">Checkout →</button>
+    </div>
+  </div>
+
+  <!-- BOOKING MODAL -->
+  <div id="booking-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <button class="modal-close" onclick="closeBooking()">✕</button>
+      <h3>Book Car Wash</h3>
+      <p id="booking-service-name" class="modal-service"></p>
+      <label>Your Name</label>
+      <input type="text" id="booking-name" placeholder="Ahmed Mohamed" />
+      <label>Phone Number</label>
+      <input type="tel" id="booking-phone" placeholder="+20 100 000 0000" />
+      <label>Date</label>
+      <input type="date" id="booking-date" />
+      <label>Time</label>
+      <input type="time" id="booking-time" />
+      <button class="btn btn-primary w-full" style="margin-top:1rem" onclick="confirmBooking()">Confirm Booking</button>
+    </div>
+  </div>
+
+  <!-- RECEIPT MODAL -->
+  <div id="receipt-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <button class="modal-close" onclick="closeReceipt()">✕</button>
+      <div class="receipt">
+        <div class="receipt-logo">Wash<span>&</span>Eat</div>
+        <div class="receipt-title">🧾 Receipt</div>
+        <div id="receipt-items"></div>
+        <div class="receipt-divider"></div>
+        <div id="receipt-total" class="receipt-total"></div>
+        <div class="receipt-thanks">Thank you for your order! 🙌</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">Wash<span>&</span>Eat</div>
+        <p>One stop for fresh food & premium car wash services.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#food">Food Menu</a>
+        <a href="#carwash">Car Wash</a>
+        <a href="#math">Pricing</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>📍 Cairo, Egypt</p>
+        <p>📞 +20 100 000 0000</p>
+        <p>📧 hello@washeat.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Wash & Eat. Grade 11 Math & Sales Project.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
