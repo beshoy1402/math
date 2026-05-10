@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wash & Eat – Admin Dashboard</title>
-  <link rel="stylesheet" href="admin.css"/>
+  <link rel="stylesheet" href="/admin/admin.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
@@ -147,7 +147,15 @@
       <h3 id="item-modal-title">Add Item</h3>
       <input type="hidden" id="item-edit-id" />
       <input type="hidden" id="item-edit-type" />
-      <label>Icon (emoji)</label>
+      <label>Image (upload photo)</label>
+      <div class="img-upload-area" id="img-upload-area" onclick="document.getElementById('item-img-file').click()">
+        <div id="img-preview-wrap">
+          <div class="img-upload-placeholder" id="img-placeholder">📷 Click to upload image</div>
+          <img id="img-preview" src="" alt="" style="display:none;max-height:120px;border-radius:8px;object-fit:cover;width:100%"/>
+        </div>
+        <input type="file" id="item-img-file" accept="image/*" style="display:none" onchange="handleImageUpload(event)"/>
+      </div>
+      <label style="margin-top:0.5rem">Icon (emoji) — used if no image</label>
       <input type="text" id="item-icon" placeholder="🍔" maxlength="4"/>
       <label>Name</label>
       <input type="text" id="item-name" placeholder="Burger"/>
@@ -172,6 +180,6 @@
   <!-- TOAST -->
   <div id="toast" class="toast"></div>
 
-  <script src="admin.js"></script>
+  <script src="/admin/admin.js"></script>
 </body>
 </html>
